@@ -8,3 +8,9 @@ GET     /                           controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+GET    /recipes     controllers.RecipesController.get
+GET    /recipes/:id controllers.RecipesController.getById(id: java.util.UUID)
+POST   /recipes     controllers.RecipesController.post
+PUT    /recipes/:id controllers.RecipesController.putById(id: java.util.UUID)
+DELETE /recipes/:id controllers.RecipesController.deleteById(id: java.util.UUID)
