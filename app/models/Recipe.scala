@@ -30,6 +30,8 @@ object Recipe {
       description = form.description,
       updatedAt = LocalDateTime.now(),
     )
+
+  def tupled = (apply _).tupled
 }
 
 case class RecipeForm(
