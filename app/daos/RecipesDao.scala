@@ -3,7 +3,6 @@ package daos
 import java.time.LocalDateTime
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
-import com.google.inject.ImplementedBy
 import play.api.db.slick._
 import scala.concurrent.Future
 import slick.jdbc.{JdbcProfile, PostgresProfile, GetResult}
@@ -12,7 +11,6 @@ import helpers.slick.dbioaction._
 import helpers.slick.jdbc._
 import models.Recipe
 
-@ImplementedBy(classOf[RecipesDaoSlickPlainSql])
 trait RecipesDao {
   def findAll(): Future[Seq[Recipe]]
   def findById(id: UUID): Future[Option[Recipe]]
