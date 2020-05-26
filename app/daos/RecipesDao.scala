@@ -88,9 +88,3 @@ class RecipesDaoSlickPlainSql @Inject()(protected val dbConfigProvider: Database
     where id = ${recipe.id}
   """.void)
 }
-
-object RecipesDaoSlickSql {
-
-  implicit final def helpersSlickGetResultUUID[A <: JdbcProfile](self: A): GetResult[UUID] =
-    GetResult(r => self.columnTypes.uuidJdbcType.fromBytes(r.nextBytes()))
-}
