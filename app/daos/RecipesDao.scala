@@ -12,7 +12,7 @@ import helpers.slick.dbioaction._
 import helpers.slick.jdbc._
 import models.Recipe
 
-@ImplementedBy(classOf[RecipesDaoSlickSql])
+@ImplementedBy(classOf[RecipesDaoSlickPlainSql])
 trait RecipesDao {
   def findAll(): Future[Seq[Recipe]]
   def findById(id: UUID): Future[Option[Recipe]]
@@ -53,7 +53,7 @@ class RecipesDaoSlick @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   def delete(recipe: Recipe): Future[Unit] = db.run(table.filter(_.id === recipe.id).delete.void)
 }
 
-class RecipesDaoSlickSql @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[PostgresProfile] with RecipesDao {
+class RecipesDaoSlickPlainSql @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[PostgresProfile] with RecipesDao {
   import profile.api._
 
   implicit val getRecipeResult = GetResult(r => Recipe(r.<<, r.<<, r.<<, r.<<, r.<<))
