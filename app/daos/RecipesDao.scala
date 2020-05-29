@@ -5,7 +5,7 @@ import java.util.UUID
 import javax.inject.{Inject, Singleton}
 import play.api.db.slick._
 import scala.concurrent.Future
-import slick.jdbc.{JdbcProfile, PostgresProfile, GetResult}
+import slick.jdbc.{JdbcProfile, GetResult}
 
 import helpers.slick.dbioaction._
 import helpers.slick.jdbc._
@@ -29,7 +29,7 @@ class RecipesDaoMap extends RecipesDao {
   def delete(recipe: models.Recipe): Future[Unit] = Future.successful(map.remove(recipe.id))
 }
 
-class RecipesDaoSlick @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] with RecipesDao {
+class RecipesDaoSlick @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends RecipesDao with HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
 
   private val table = TableQuery[RecipesTable]
@@ -50,7 +50,7 @@ class RecipesDaoSlick @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   def delete(recipe: models.Recipe): Future[Unit] = db.run(table.filter(_.id === recipe.id).delete.void)
 }
 
-class RecipesDaoSlickPlainSql @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[PostgresProfile] with RecipesDao {
+class RecipesDaoSlickPlainSql @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends RecipesDao with HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
 
   implicit val getRecipeResult = GetResult(r => models.Recipe(r.<<, r.<<, r.<<, r.<<, r.<<))
