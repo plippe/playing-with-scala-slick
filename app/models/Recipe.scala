@@ -31,7 +31,8 @@ object Recipe {
       updatedAt = LocalDateTime.now(),
     )
 
-  def tupled = (apply _).tupled
+  def tupled(tuple: ((UUID, String, String, LocalDateTime, LocalDateTime))): Recipe =
+    (apply _).tupled(tuple)
 }
 
 case class RecipeForm(
